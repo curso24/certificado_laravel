@@ -55,6 +55,7 @@ class AlumnoController extends Controller
      */
     public function edit(Alumno $alumno)
     {
+        return view ("alumnos.editar", ["alumno"=>$alumno]);
         //
     }
 
@@ -63,6 +64,22 @@ class AlumnoController extends Controller
      */
     public function update(UpdateAlumnoRequest $request, Alumno $alumno)
     {
+
+        //Recojo tgodos los inputs del formulario
+        //$request que es la solicitud trae con ella un formularo con datos
+        //Es como $_POST['nombre']... que hacíamo antes
+        $valores = $request->input(); //Leo los valores del formulario
+
+
+        //Actualizo el alumno que estoy editando (lo recibo por parámetro que viene uen una url )
+        //y lo actualizo con los nuevos deatos del formulario
+        $alumno->update($valores);
+
+        //Ahora recupero todos los datos de la tabla de la base de datos
+        $alumnos = Alumno::all();
+        //Y entrego esos datos a la vista para que me los muestre en una tabla
+        return view ("alumnos.listado",["alumnos"=>$alumnos]);
+
         //
     }
 

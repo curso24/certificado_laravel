@@ -1,26 +1,29 @@
 <x-layouts.layout>
     <div class="overflow-x-auto max-h-full">
-
-        <a href="/alumnos/create" class="btn btn-primary w-full text-3xl"> Añadir Alumno</a>
-
+        @if(session('status'))
+            <div role="alert" class="alert alert-success">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span>{{session('status')}}</span>
+            </div>
+        @endif
+        <a href="/profesores/create" class="btn btn-primary w-full text-3xl"> Añadir Profesor</a>
         <table class="table table-xs table-pin-rows ">
+
             <tr>
                 <th>nombre</th>
                 <th>apellidos</th>
-                <th>dirección</th>
-                <th> teléfono</th>
-                <th> email</th>
+                <th>email</th>
+                <th> departamento</th>
             </tr>
 
-            @foreach($alumnos as $alumno)
+            @foreach($profesores as $profesor)
                 <tr>
-                    <td>{{$alumno->nombre}}</td>
-                    <td>{{$alumno->apellidos}}</td>
-                    <td>{{$alumno->direccion}}</td>
-                    <td>{{$alumno->telefono}}</td>
-                    <td>{{$alumno->email}}</td>
+                    <td>{{$profesor->nombre}}</td>
+                    <td>{{$profesor->apellidos}}</td>
+                    <td>{{$profesor->email}}</td>
+                    <td>{{$profesor->departamento}}</td>
                     <td>
-                        <form action="/alumnos/{{$alumno->id}}" method="POST">
+                        <form action="/profesores/{{$profesor->id}}" method="POST">
                             @csrf
                             @method("DELETE")
                             <button class="btn" type="submit">
@@ -33,7 +36,7 @@
                         </form>
                     </td>
                     <td>
-                        <a href="/alumnos/{{$alumno->id}}/edit" class="bth">
+                        <a href="/profesores/{{$profesor->id}}/edit" class="bth">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                  stroke="currentColor" class="w-6 h-6 text-blue-700">
                                 <path stroke-linecap="round" stroke-linejoin="round"
