@@ -20,14 +20,13 @@ export default {
                 "15v": "15vh",
             },
             colors: {
-                "header": "#750D37",
+                "header": "#d0cfcf",
                 "footer": "#a39da0",
-                "main": "#E5FCF5",
-                "nav": "#B3DEC1",
+                "main": "#e4eae6",
+                "nav": "#dfe5e0"
             }
 
         },
     },
-
     plugins: [forms,require("daisyui")],
 };

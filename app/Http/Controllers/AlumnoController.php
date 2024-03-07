@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAlumnoRequest;
 use App\Http\Requests\UpdateAlumnoRequest;
 use App\Models\Alumno;
+use Illuminate\Support\Facades\Request;
 
 class AlumnoController extends Controller
 {
@@ -13,9 +14,12 @@ class AlumnoController extends Controller
      */
     public function index()
     {
-         $alumnos = Alumno::all();
+        $alumnos = Alumno::paginate(5);
+        $page = Request::get('page') ?? 1;
 
-         return view("alumnos.listado",["alumnos"=> $alumnos]);
+//         return view("alumnos.listado",["alumnos"=> $alumnos, "page"=>$page]);
+
+        return view("alumnos.listado",compact("alumnos", "page"));
 
     }
 
@@ -47,6 +51,8 @@ class AlumnoController extends Controller
      */
     public function show(Alumno $alumno)
     {
+
+        return view("alumnos.show", compact('alumno'));
         //
     }
 
@@ -55,8 +61,11 @@ class AlumnoController extends Controller
      */
     public function edit(Alumno $alumno)
     {
-        return view ("alumnos.editar", ["alumno"=>$alumno]);
-        //
+        $page = Request::get("page");
+
+        return view ("alumnos.editar", ["alumno"=>$alumno,"page"=>$page, "idiomas"=>$idiomas]);
+
+
     }
 
     /**
@@ -65,20 +74,25 @@ class AlumnoController extends Controller
     public function update(UpdateAlumnoRequest $request, Alumno $alumno)
     {
 
-        //Recojo tgodos los inputs del formulario
-        //$request que es la solicitud trae con ella un formularo con datos
-        //Es como $_POST['nombre']... que hacíamo antes
+        $page = Request::get("page");
+
+
         $valores = $request->input(); //Leo los valores del formulario
 
 
-        //Actualizo el alumno que estoy editando (lo recibo por parámetro que viene uen una url )
-        //y lo actualizo con los nuevos deatos del formulario
         $alumno->update($valores);
 
-        //Ahora recupero todos los datos de la tabla de la base de datos
-        $alumnos = Alumno::all();
-        //Y entrego esos datos a la vista para que me los muestre en una tabla
-        return view ("alumnos.listado",["alumnos"=>$alumnos]);
+        //Opciones alternativas para retornar
+//        return redirect(route("alumnos.index", ["page"=>$page]));
+//        return redirect(route("alumnos.index", compact("page")));
+//        return redirect("/alumnos?page=$page");
+
+
+        return response()->redirectTo(route("alumnos.index",["page"=>$page]));
+//        header ("Location:http://localhost:8000/alumnos?page=$page");
+
+
+//        return view ("alumnos.listado",["alumnos"=>$alumnos,"page"=>$page]);
 
         //
     }
@@ -89,7 +103,7 @@ class AlumnoController extends Controller
     public function destroy(Alumno $alumno)
     {
         $alumno->delete();
-        $alumnos = Alumno::all();
+        $alumnos = Alumno::paginate(5);
         return view ("alumnos.listado",["alumnos"=>$alumnos]);
 
 

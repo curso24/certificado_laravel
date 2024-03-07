@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Models\Profesor;
 use App\Http\Requests\StoreProfesorRequest;
 use App\Http\Requests\UpdateProfesorRequest;
-use App\Models\Profesor;
+use Illuminate\Support\Facades\Request;
 
 class ProfesorController extends Controller
 {
@@ -13,8 +14,8 @@ class ProfesorController extends Controller
      */
     public function index()
     {
-        $profesores = Profesor::all();
-        return view ("profesores.listado",["profesores"=>$profesores]);
+        $profesores = Profesor::paginate(5);
+        return view("profesores.listado", ["profesores" => $profesores]);
         //
     }
 
@@ -23,7 +24,7 @@ class ProfesorController extends Controller
      */
     public function create()
     {
-        return view ("profesores.create");
+        return view("profesores.create");
         //
     }
 
@@ -32,13 +33,16 @@ class ProfesorController extends Controller
      */
     public function store(StoreProfesorRequest $request)
     {
-     $valores = $request->input();
-     $profesor = new Profesor($valores);
-     $profesor->save();
-     $profesores = Profesor::all();
-     session()->flash("status", "Se ha creado $profesor->id");
-     return view ("profesores.listado",["profesores"=>$profesores]);
+        $valores = $request->input();
+        $profesor = new Profesor($valores);
+        $profesor->save();
+        session()->flash("status", "Se ha creado el profesor $profesor->nombre");
+
+        $profesores = Profesor::all();
+
+        return view("profesores.listado", ["profesores" => $profesores]);
     }
+
 
     /**
      * Display the specified resource.
@@ -51,29 +55,40 @@ class ProfesorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Profesor $profesor)
+    public function edit(int $id)
     {
-        //
+        $profesor = Profesor::find($id);
+        return view("profesores.editar", ["profesor" => $profesor]);
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateProfesorRequest $request, Profesor $profesor)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(int $id)
-    {
-        $profesor =Profesor::find($id);
-        $profesor->delete();
-        $profesores = Profesor::all();
-        session()->flash("status", "Se ha borrado $profesor->id");
-        return view ("profesores.listado",["profesores"=>$profesores]);
-        //
-    }
+/**
+ * Update the specified resource in storage.
+ */
+public
+function update(UpdateProfesorRequest $request, Profesor $profesor)
+{
+    $page=Request::get("page");
+
+    $valores = $request->input(); //Leo los valores del formulario
+
+
+
+    $profesor->update($valores);
+    return response()->redirectTo(route("profesores.index",["page"=>$page]));}
+
+/**
+ * Remove the specified resource from storage.
+ */
+public
+function destroy(int $id)
+{
+    $profesor = Profesor::find($id);
+    $profesor->delete();
+    $profesores = Profesor::all();
+    session()->flash("status", "Se ha borrado $profesor->id");
+    return view("profesores.listado", ["profesores" => $profesores]);
+    //
+}
 }

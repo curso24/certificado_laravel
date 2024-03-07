@@ -1,10 +1,18 @@
 <x-layouts.layout>
     <div class="overflow-x-auto max-h-full">
         @if(session('status'))
-            <div role="alert" class="alert alert-success">
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                <span>{{session('status')}}</span>
-            </div>
+            <script>
+                Swal.fire("{{session("status")}}");
+            </script>
+
+            {{--            <div role="alert" class="alert alert-success" id="alertSession">--}}
+            {{--                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"--}}
+            {{--                     viewBox="0 0 24 24">--}}
+            {{--                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"--}}
+            {{--                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>--}}
+            {{--                </svg>--}}
+            {{--                <span>{{session('status')}}</span>--}}
+            {{--            </div>--}}
         @endif
         <a href="/profesores/create" class="btn btn-primary w-full text-3xl"> Añadir Profesor</a>
         <table class="table table-xs table-pin-rows ">
@@ -13,7 +21,7 @@
                 <th>nombre</th>
                 <th>apellidos</th>
                 <th>email</th>
-                <th> departamento</th>
+                <th>departamento</th>
             </tr>
 
             @foreach($profesores as $profesor)
@@ -24,9 +32,10 @@
                     <td>{{$profesor->departamento}}</td>
                     <td>
                         <form action="/profesores/{{$profesor->id}}" method="POST">
+
                             @csrf
                             @method("DELETE")
-                            <button class="btn" type="submit">
+                            <button onclick="confirmDelete(event,this)" class= "btn" type="submit">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                      stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-500">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -36,7 +45,7 @@
                         </form>
                     </td>
                     <td>
-                        <a href="/profesores/{{$profesor->id}}/edit" class="bth">
+                        <a href="{{route("profesores.edit",$profesor->id)}}" class="bth">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                  stroke="currentColor" class="w-6 h-6 text-blue-700">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -51,6 +60,38 @@
             @endforeach
 
         </table>
+
     </div>
+
+    {{ $profesores ->links("vendor.pagination.simple-tailwind") }}
+
+    <script>
+        function confirmDelete(event,button){
+            event.preventDefault();
+            Swal.
+            fire({
+                title: '¿Estás seguro?',
+                text: "No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d23061',
+                cancelButtonColor: '#83f5f1',
+                confirmButtonText: 'Sí, borrarlo!'
+            }).then((result) => {
+                if (result.isConfirmed) {// Buscar el formulario más cercano y enviarlo
+                    button.closest('form').submit()
+                }
+            });
+
+
+
+        }
+        //window.onload = () =>
+            //setTimeout(() =>
+                //document.getElementById("alertSession").style.display = "none", 5000);
+    </script>
+
+
+
 
 </x-layouts.layout>
