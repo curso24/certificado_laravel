@@ -25,7 +25,7 @@
             </tr>
 
             @foreach($profesores as $profesor)
-                <tr>
+                <tr class="hover:bg-amber-400 hover:cursor-pointer">
                     <td>{{$profesor->nombre}}</td>
                     <td>{{$profesor->apellidos}}</td>
                     <td>{{$profesor->email}}</td>
@@ -45,7 +45,7 @@
                         </form>
                     </td>
                     <td>
-                        <a href="{{route("profesores.edit",$profesor->id)}}" class="bth">
+                        <a href="{{route("profesores.edit",[$profesor->id,$page])}}" class="bth">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                  stroke="currentColor" class="w-6 h-6 text-blue-700">
                                 <path stroke-linecap="round" stroke-linejoin="round"

@@ -1,4 +1,3 @@
-
 <x-layouts.layout>
 
     <div class=" flex flex-col justify-center items-center p-8">
@@ -12,8 +11,8 @@
                             <label for="">Nombre</label><br>
                             {{$alumno->nombre}}
                             <label for="">Apellidos<br>
-                            {{$alumno->apellidos}}<br>
-                            <label for="">Dirección</label>
+                                {{$alumno->apellidos}}<br>
+                                <label for="">Dirección</label>
                             {{$alumno->direccion}}
                         </fieldset>
                     </div>
@@ -29,9 +28,9 @@
                     <div>
                         <fieldset>
                             <legend>Idiomas que habla {{$alumno->nombre}}</legend>
-@foreach($alumno->idiomas as $idioma)
+                            @foreach($alumno->idiomas as $idioma)
                                 <h2>{{$idioma->idioma}}</h2>
-@endforeach
+                            @endforeach
                         </fieldset>
 
 
@@ -47,3 +46,6 @@
         </div>
     </div>
 </x-layouts.layout>
+
+
+

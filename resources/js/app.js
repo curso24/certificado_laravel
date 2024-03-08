@@ -1,7 +1,15 @@
 import './bootstrap';
 
-import Alpine from 'alpinejs';
+import React from "react";
+import Saludo from "./Pages/Saludo.jsx"
 
-window.Alpine = Alpine;
+import {createRoot} from "react-dom/client";
 
-Alpine.start();
+
+
+const saludo =document.getElemntById ('root');
+
+const main_element= document.getElemntById ('root');
+
+const root=createRoot(main_element);
+rot.render(<Saludo />);

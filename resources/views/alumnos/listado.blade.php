@@ -56,7 +56,7 @@
 
         }
     </script>
-    {{$alumnos->links("vendor.pagination.tailwind")}}
+    {{$alumnos->links("vendor.pagination.simple-tailwind")}}
 
 </x-layouts.layout>
 

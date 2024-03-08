@@ -18,19 +18,10 @@ Esto crea los siguientes elementos:
 
 ## Ajusto los valores por defecto
 
-Cómo el modelo se llama Profesor y la tabla queiro que se llame prefores y no profesors, tengo que indicarlo:
+Cómo el modelo se llama Profesor y la tabla queiro que se llame profores y no profesors, tengo que indicarlo:
 
 
 ### Creo las rutas
-
-*Debemos ir al fichero de rutas (web.php) y, allí, agregamos:
-•use App\Http\Controllersd\ProfesorController;
-•Route::resource(“profesores”, ProfesorController::class);
-El método resource crea todas las solicitudes posibles para acceder a un recurso.
-Después ejecutamos el comando php artisan route:list –path=”profesores”; al ejecutarlo, vemos las
-rutas.
-
-
 
 
 ### Creo la tabla
@@ -41,4 +32,27 @@ Ahora para poblar la tabla, desde el fichero seeder se llama al factory. Si ejec
 php artisan migrate: fresh –seed, lo que nos hace este comando es borrarnos y crearnos de nuevo la
 tabla
 ## Creando un CRUD para paginacion
-## Creando un CRUD para paginacion para profesores
+
+
+
+AÑADIDO A ALUMNOS IDIOMAS Y ETIQUETA PARA VISUALIZARLO
+
+INSTALAMOS REACT EN LARAVEL:
+
+PRIMERO INSTALAMOS 3 PAQUETES
+npm install --save-dev @vitejs/plugin-react
+npm install react@latest react-dom@latest
+
+MODIFICAMOS EL FICHERO DE CONFIGURACIÓN AÑADIENDO EL NUEVO PLUGIN QUE VAMOS A USAR:
+
+import { defineConfig } from 'vite';
+import laravel from 'laravel-vite-plugin';
+import react from "@vitejs/plugin-react"
+
+export default defineConfig({
+plugins: [
+react(),
+laravel({
+.....
+
+importamos 

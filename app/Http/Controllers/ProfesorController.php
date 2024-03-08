@@ -15,7 +15,9 @@ class ProfesorController extends Controller
     public function index()
     {
         $profesores = Profesor::paginate(5);
-        return view("profesores.listado", ["profesores" => $profesores]);
+        $page = Request::get("page") ??1;
+        return view("profesores.listado", ["profesores" => $profesores, "page"=>$page]);
+//        return view("profesores.listado", compact("profesores", "page"));
         //
     }
 
@@ -58,7 +60,8 @@ class ProfesorController extends Controller
     public function edit(int $id)
     {
         $profesor = Profesor::find($id);
-        return view("profesores.editar", ["profesor" => $profesor]);
+        $page= Request::get('page');
+        return view("profesores.editar", ["profesor" => $profesor, 'page'=>$page]);
 
     }
 

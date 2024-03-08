@@ -63,7 +63,7 @@ class AlumnoController extends Controller
     {
         $page = Request::get("page");
 
-        return view ("alumnos.editar", ["alumno"=>$alumno,"page"=>$page, "idiomas"=>$idiomas]);
+        return view ("alumnos.editar", ["alumno"=>$alumno,"page"=>$page]);
 
 
     }
