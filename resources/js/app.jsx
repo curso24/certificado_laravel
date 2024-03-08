@@ -1,4 +1,3 @@
-import './bootstrap';
 // import 'Code.jsx';
 
 import React from "react";
@@ -12,6 +11,7 @@ const react_saludo = document.getElementById("react-saludo");
 
 if (react_numero) {
     const num = react_numero.getAttribute("numero");
+    console.log(`numero ${num}`)
     createRoot(react_numero).render(<Numero numero={num}/>);
 }
 

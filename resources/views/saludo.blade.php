@@ -2,14 +2,12 @@
 
     <h1>Voy  a visualizar el componente Reac Saludo</h1>
 
-    <div id="react-saludo">
-
-    </div>
+    <div id="react-numero" numero={{$n}} ></div>
 
     <h1>Voy  a visualizar el componente Reac Numero</h1>
 
 
-    <div id="react-saludo"numero="{{$n}}}">
+    <div id="react-saludo" >
 
     </div>>
 
