@@ -11,7 +11,9 @@ class MainController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view("saludo");
+
+        $n= rand(1,100);
+        return view("saludo",["n"=>$n]);
         //
     }
 }

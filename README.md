@@ -33,6 +33,15 @@ php artisan migrate: fresh –seed, lo que nos hace este comando es borrarnos y 
 tabla
 ## Creando un CRUD para paginacion
 
+public function index()
+{
+$profesores = Profesor::paginate(5);
+$page = Request::get("page") ??1;
+return view("profesores.listado", ["profesores" => $profesores, "page"=>$page]);
+//        return view("profesores.listado", compact("profesores", "page"));
+//
+}
+
 
 
 AÑADIDO A ALUMNOS IDIOMAS Y ETIQUETA PARA VISUALIZARLO
@@ -56,3 +65,6 @@ laravel({
 .....
 
 importamos 
+
+
+

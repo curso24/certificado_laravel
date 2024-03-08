@@ -8,9 +8,12 @@ import {createRoot} from "react-dom/client";
 
 const react_numero=document.getElemntById("react-numero");
 const react_saludo=document.getElemntById("react-saludo");
-if(react_numero)
-    createRoot(react_numero).render(<Numero/>);
 
+if(react_numero){
+
+    const numero = react_numero.getAttribute("numero");
+    createRoot(react_numero).render(<Numero numero={numero}/>);
+}
 if(react_saludo)
     createRoot(react_saludo).render(<Saludo/>);
 
